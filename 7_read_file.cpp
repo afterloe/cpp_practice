@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 
-namespace rf
+namespace namespace_read_file
 {
 
     class Util
@@ -25,8 +25,7 @@ namespace rf
     public:
         Oneline(std::string file_path) : Util(file_path)
         {
-            char chunk[32];
-            this->chunk = chunk;
+            this->chunk = new char[32];
         }
 
         void read_file()
@@ -39,15 +38,18 @@ namespace rf
             }
             std::cout << std::endl;
         }
+
+        ~Oneline() {
+            delete this->chunk;
+        }
     };
 }
 
 int main(void)
 {
     std::string file_path = "./4_array.cpp";
-    rf::Util *ptr;
-    rf::Oneline one(file_path);
-    ptr = &one;
+    namespace_read_file::Util* ptr = new namespace_read_file::Oneline(file_path);
     ptr->read_file();
+    // delete ptr;
     return 0;
 }

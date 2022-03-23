@@ -7,15 +7,21 @@
  * 
  * @copyright Copyright (c) 2022
  * 
- * 
- * 
-#include <stdio.h>
-#include <unistd.h>
-#include <netdb.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
+ */
+#include "ip.h"
 
+int main(void) {
+    IP *ptr = new IP();
+    char* hostname = ptr -> getHostname();
+    std::cout<<hostname<<std::endl;
+    char** ips = ptr->getIPV4();
+    for(int i = 0; i < sizeof(*ips); i++) {
+        std::cout<<*(ips + i)<<std::endl;
+    }
+    delete ptr;
+}
+
+/* 
 int main() {
     char hname[128];
     struct hostent *hent;
@@ -32,14 +38,6 @@ int main() {
     }
     return 0;
 }
- */
-
-#include <stdio.h>      
-#include <sys/types.h>
-#include <ifaddrs.h>
-#include <netinet/in.h> 
-#include <string.h> 
-#include <arpa/inet.h>
 
 int main (int argc, const char * argv[]) {
     struct ifaddrs * ifAddrStruct=NULL;
@@ -65,3 +63,4 @@ int main (int argc, const char * argv[]) {
     }
     return 0;
 }
+ */

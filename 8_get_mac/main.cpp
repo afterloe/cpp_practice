@@ -1,11 +1,11 @@
 /**
  * @file main.cpp
- * @author your name (you@domain.com)
+ * @author afterloe (liumin@ascs.tech)
  * @brief 
- * @version 0.1
+ * @version 1.0
  * @date 2022-03-23
  * 
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - MIT License
  * 
  */
 #include "ip.h"

@@ -4,9 +4,11 @@
 using namespace std;
 
 // 使用随机数
-int main(void) {
+int main(void)
+{
     srand((unsigned)time(NULL));
-    for (int i = 0; i< 10; i++) {
+    for (int i = 0; i < 10; i++)
+    {
         cout << rand() << endl;
     }
 }

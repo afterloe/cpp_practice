@@ -1,6 +1,29 @@
 {
     "configurations": [
         {
+            "name": "Linux",    
+            "includePath": [ 
+                "${workspaceFolder}/**"//此处会匹配工作文件下的所有文件
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc", 
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "gcc-x64"
+        },
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "D:/Software/llvm-mingw-20220323-msvcrt-i686/include"
+            ],
+            "defines": [],
+            "compilerPath": "C:/MinGW/bin/c++",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64"
+        },
+        {
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/**",

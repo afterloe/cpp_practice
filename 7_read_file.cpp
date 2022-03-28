@@ -20,7 +20,7 @@ namespace namespace_read_file
     {
 
     private:
-        char * chunk;
+        char *chunk;
 
     public:
         Oneline(std::string file_path) : Util(file_path)
@@ -39,7 +39,8 @@ namespace namespace_read_file
             std::cout << std::endl;
         }
 
-        ~Oneline() {
+        ~Oneline()
+        {
             delete this->chunk;
         }
     };
@@ -48,7 +49,7 @@ namespace namespace_read_file
 int main(void)
 {
     std::string file_path = "./4_array.cpp";
-    namespace_read_file::Util* ptr = new namespace_read_file::Oneline(file_path);
+    namespace_read_file::Util *ptr = new namespace_read_file::Oneline(file_path);
     ptr->read_file();
     // delete ptr;
     return 0;

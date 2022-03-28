@@ -11,6 +11,8 @@
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}.o",
                 "-std=c++17",
+                "-I",
+                "/usr/local/include/opencv4"
             ],
             "options": {
                 "cwd": "${fileDirname}"

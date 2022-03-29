@@ -1,6 +1,7 @@
 *.out
 *.o
-a.exe
+a.txt
+*.exe
 .vscode
 .vscode/*
 *.dSYM

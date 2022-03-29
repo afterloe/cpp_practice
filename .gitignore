@@ -3,3 +3,5 @@
 a.exe
 .vscode
 .vscode/*
+*.dSYM
+

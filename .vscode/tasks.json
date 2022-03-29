@@ -1,0 +1,57 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "Windows",
+            "command": "C:/MinGW/bin/c++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}.exe",
+                "-std=c++17",
+                "-I",
+                "C:/opencv/opencv/build/include"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "执行windows下编译的成果"
+        },
+        {
+            "type": "cppbuild",
+            "label": "Mac OS",
+            "command": "/usr/bin/c++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}.o",
+                "-std=c++17",
+                "-I",
+                "/usr/local/include/opencv4"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "执行Mac OS下编译的成果"
+        }
+    ],
+    "version": "2.0.0"
+}

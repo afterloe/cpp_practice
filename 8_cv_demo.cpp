@@ -1,7 +1,10 @@
+#include <opencv2/core.hpp>
 #include <iostream>
-#include <opencv2/opencv.hpp>
+
+using namespace std;
 
 int main()
 {
-    
+    cv::getVersionString();
+    return 0;
 }

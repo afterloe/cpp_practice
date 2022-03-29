@@ -1,10 +1,16 @@
-class Line {
-    public:
-        void setLength(int);
-        int getLength(void);
-        Line(int);
-        ~Line();
+#ifndef __LINE_H__
+#define __LINE_H__
 
-    private:
-        int line;
+class Line
+{
+public:
+    void setLength(int);
+    int getLength(void);
+    Line(int);
+    ~Line();
+
+private:
+    int line;
 };
+
+#endif

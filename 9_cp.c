@@ -5,7 +5,7 @@
 
 int main(int argc, char **args)
 {
-    char *path = (char *)malloc(sizeof(char[128]));
+    char *path = NULL;
     if (1 == argc)
     {
         path = "a.txt";
@@ -14,8 +14,9 @@ int main(int argc, char **args)
     {
         path = args[1];
     }
-    FILE *src = fopen(path, "r");
-    FILE *dst = fopen("copy.gif", "w");
+    //b是二进制模式的意思，b只是在Windows有效，在Linux用r和rb的结果是一样的
+    FILE *src = fopen(path, "rb");
+    FILE *dst = fopen("copy.gif", "wb");
     if (NULL == src || NULL == dst)
     {
         perror("no such file, src, dst");

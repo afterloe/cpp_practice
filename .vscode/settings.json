@@ -68,6 +68,8 @@
         "fstream": "cpp",
         "deque": "cpp",
         "iomanip": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "stdio.h": "c",
+        "stdlib.h": "c"
     }
 }

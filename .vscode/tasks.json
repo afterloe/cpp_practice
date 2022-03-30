@@ -10,9 +10,7 @@
                 "${file}",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}.exe",
-                "-std=c++17",
-                "-I",
-                "C:/opencv/opencv/build/include",
+                "-std=c++17"
             ],
             "options": {
                 "cwd": "${fileDirname}"

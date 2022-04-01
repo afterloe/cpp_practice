@@ -2,8 +2,28 @@
     "tasks": [
         {
             "type": "cppbuild",
+            "label": "Linux",
+            "command": "/usr/bin/clang++-11",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${workspaceFolder}/out/${fileBasenameNoExtension}.app"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "/usr/bin/clang++-11"
+        },
+        {
+            "type": "cppbuild",
             "label": "Windows",
-            "command": "C:/MinGW/bin/c++",
+            "command": "C:/mingw64/bin/c++",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",

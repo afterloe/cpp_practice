@@ -5,4 +5,4 @@ a.txt
 .vscode
 .vscode/*
 *.dSYM
-
+out/

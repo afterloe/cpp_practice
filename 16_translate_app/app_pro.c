@@ -16,10 +16,16 @@ extern void search_dict(DICT_ITEM *, int, char *);
 extern void trim(char *);
 extern FILE *open_file(const char *);
 
-int main()
+int main(int argc, char **args)
 {
     DICT_ITEM *dict = NULL;
-    int count = init_dict(&dict, "/home/afterloe/Resources/dicts/dict_utf8.txt");
+    int count = -1;
+    if (1 == argc) {
+        count = init_dict(&dict, "./dict.txt");
+    } else {
+        args++;
+        count = init_dict(&dict, *args);
+    }
     if (-1 == count)
     {
         printf("[error]: 字典初始化失败。\n");

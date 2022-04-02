@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define BUFF_SIZE 256
+#define BUFF_SIZE 512
 
 typedef struct _dict_item
 {
@@ -47,26 +47,25 @@ int init_dict(DICT_ITEM **p, char *dict_path)
     int line_count = get_file_line(dict_path);
     DICT_ITEM *tmp = (DICT_ITEM *)malloc(sizeof(DICT_ITEM) * line_count);
     char *content = NULL;
-    while (1)
+    for (int i = 0; i < line_count; i++)
     {
         content = fgets(buff, BUFF_SIZE, f);
         if (NULL == content)
         {
-            break;
+            continue;
         }
         trim(content);
-        tmp->key = (char *)malloc(strlen(content));
-        strcpy(tmp->key, content + 1);
+        tmp[i].key = (char *)malloc(strlen(content) + 1);
+        strcpy(tmp[i].key, content + 1);
+
         content = fgets(buff, BUFF_SIZE, f);
         if (NULL == content)
         {
-            break;
+            continue;
         }
         trim(content);
-        tmp->value = (char *)malloc(strlen(content));
-        strcpy(tmp->value, content + 6);
-
-        tmp++;
+        tmp[i].value = (char *)malloc(strlen(content) + 1);
+        strcpy(tmp[i].value, content + 6);
     }
 
     fclose(f);
@@ -78,10 +77,21 @@ int get_file_line(char *file_path)
 {
     char *buff = (char *)malloc(BUFF_SIZE);
     int line_num = 0;
+    char *content = NULL;
     FILE *f = open_file(file_path);
-    while (NULL != fgets(buff, BUFF_SIZE, f))
+    while (1)
     {
-        line_num += 2;
+        content = fgets(buff, BUFF_SIZE, f);
+        if (NULL == content)
+        {
+            break;
+        }
+        content = fgets(buff, BUFF_SIZE, f);
+        if (NULL == content)
+        {
+            break;
+        }
+        line_num++;
     }
     fclose(f);
     return line_num;
@@ -93,23 +103,20 @@ void search_dict(DICT_ITEM *dict, int line_count, char *src)
     {
         if (strcmp(src, dict->key) == 0)
         {
-            printf("[info]: %s\n", dict->value);
-            break;
+            printf("[trans]: %s\n", dict->value);
+            return;
         }
         dict++;
     }
     printf("[info]: 未找到对应内容。\n");
 }
 
-void trim(char *content)
+void trim(char *buf)
 {
-
-    int n = strlen(content) - 1;
-    while (content[n] == '\r' || content[n] == '\n' || content[n] == '\t' || content[n] == ' ')
-    {
+    int n = strlen(buf) - 1;
+    while (buf[n] == ' ' || buf[n] == '\n' || buf[n] == '\r' || buf[n] == '\t')
         n--;
-    }
-    content[n + 1] = 0;
+    buf[n + 1] = 0;
 }
 
 FILE *open_file(const char *file_path)

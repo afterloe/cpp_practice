@@ -26,7 +26,6 @@ int main()
         return count;
     }
     printf("[info]: 字典加载成功，共 %d 条\n", count);
-    printf("%s %s\n", dict[200].key, dict[200].value);
     printf("[info]: 请输入要翻译的内容\n");
     char *input = NULL;
     char *buff = (char *)malloc(BUFF_SIZE);

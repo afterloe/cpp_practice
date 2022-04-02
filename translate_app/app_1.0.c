@@ -19,7 +19,7 @@ int main()
     int ret = 0;
     char input[128] = {0};
     char content[128] = {0};
-    printf("提示： 请输入要翻译的内容。\n");
+    printf("[info]： 请输入要翻译的内容。\n");
     while (1)
     {
         fgets(input, sizeof(input), stdin);
@@ -27,11 +27,11 @@ int main()
         ret = searh(dict, 2, input, content);
         if (0 == ret)
         {
-            printf("未找到[%s]对应内容，请更新词典。\n", input);
+            printf("[info]: 未找到[%s]对应内容，请更新词典。\n", input);
         }
         else
         {
-            printf(":-> %s\n", content);
+            printf("[info]: %s\n", content);
         }
     }
 
@@ -49,7 +49,7 @@ void init_dict(DICT_ITEM **tmp)
     strcpy(p[1].key, "世界");
     strcpy(p[1].value, "world");
     *tmp = p;
-    printf("字典加载完成\n");
+    printf("[info]: 字典加载完成\n");
 }
 
 int searh(DICT_ITEM *item, int size, char *src, char *translate)

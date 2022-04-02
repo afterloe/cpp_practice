@@ -57,18 +57,16 @@ int init_dict(DICT_ITEM **p, char *dict_path)
         trim(content);
         tmp->key = (char *)malloc(strlen(content));
         strcpy(tmp->key, content + 1);
-
         content = fgets(buff, BUFF_SIZE, f);
         if (NULL == content)
         {
             break;
         }
         trim(content);
-        tmp->value = (char *)malloc(strlen(content + 5));
+        tmp->value = (char *)malloc(strlen(content));
         strcpy(tmp->value, content + 6);
 
         tmp++;
-        break;
     }
 
     fclose(f);
@@ -105,18 +103,13 @@ void search_dict(DICT_ITEM *dict, int line_count, char *src)
 
 void trim(char *content)
 {
-    for (int i = strlen(content); i > 0; i--)
+
+    int n = strlen(content) - 1;
+    while (content[n] == '\r' || content[n] == '\n' || content[n] == '\t' || content[n] == ' ')
     {
-        char c = content[i];
-        if (c == '\r' || c == '\n' || c == '\t' || c == ' ')
-        {
-            content[i] = 0;
-        }
-        else
-        {
-            break;
-        }
+        n--;
     }
+    content[n + 1] = 0;
 }
 
 FILE *open_file(const char *file_path)

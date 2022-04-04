@@ -3,24 +3,49 @@
 #include <string.h>
 
 extern int find_char(char *, char *);
-extern void reversal(char **);
+extern void reversal(char *);
 
 int main()
 {
- 
-    // char *content = "abcdefg";
-    // reversal(&content);
-    // printf("%s\n", content);
+    char src[] = "abcdefghijklmnopqrstuvwxyz";
+    printf("src = [%s]\n", src);
+    reversal(src);
+    printf("reversal = [%s]\n", src);
 
-    char *src = "abcdefghijklmnopqrstuvwxyz";
-    int ret = find_char(src, "kl");
+    char sub[] = "kl";
+    int ret = find_char(src, sub);
     if (-1 == ret)
     {
         printf("can't find any code from this str.");
         return EXIT_FAILURE;
     }
-    printf("str is %d\n", ret);
+    printf("sub str is %d\n", ret);
     return EXIT_SUCCESS;
+}
+
+void reversal(char *str)
+{
+    // int start = 0;
+    // int end = strlen(str) - 1;
+    // while (start < end)
+    // {
+    //     str[start] = str[start] ^ str[end];
+    //     str[end] = str[start] ^ str[end];
+    //     str[start] = str[start] ^ str[end];
+    //     start++;
+    //     end--;
+    // }
+
+    char *start = str;
+    char *end = str + strlen(str) - 1;
+    while (start < end)
+    {
+        start = *start ^ *end;
+        end = *start ^ *end;
+        start = *start ^ *end;
+        start++;
+        end--;
+    }
 }
 
 int find_char(char *src, char *sub)

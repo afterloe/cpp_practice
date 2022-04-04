@@ -37,15 +37,3 @@ void test_02()
         printf("%d 是奇数\n", num);
     }
 }
-
-void reversal(char **str)
-{
-    int str_len = strlen(*str);
-    char tmp = 0;
-    for (int i = 0; i < str_len; i++)
-    {
-        tmp = (*str)[i];
-        (*str)[i] = (*str)[str_len - i];
-        (*str)[str_len - i] = tmp;
-    }
-}

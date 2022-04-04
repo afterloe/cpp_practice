@@ -3,9 +3,15 @@
 #include <string.h>
 
 extern int find_char(char *, char *);
+extern void reversal(char **);
 
 int main()
 {
+ 
+    // char *content = "abcdefg";
+    // reversal(&content);
+    // printf("%s\n", content);
+
     char *src = "abcdefghijklmnopqrstuvwxyz";
     int ret = find_char(src, "kl");
     if (-1 == ret)

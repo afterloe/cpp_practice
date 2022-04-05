@@ -54,9 +54,8 @@
                 "${file}",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}.o",
-                "-std=c++17",
-                "-I",
-                "/usr/local/include/opencv4"
+                "-std=c++11",
+                "-Wwritable-strings"
             ],
             "options": {
                 "cwd": "${fileDirname}"

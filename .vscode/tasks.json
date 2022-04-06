@@ -3,7 +3,7 @@
         {
             "type": "cppbuild",
             "label": "Linux",
-            "command": "/usr/bin/clang++-11",
+            "command": "/usr/bin/c++",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
@@ -18,7 +18,7 @@
                 "$gcc"
             ],
             "group": "build",
-            "detail": "/usr/bin/clang++-11"
+            "detail": "/usr/bin/c++"
         },
         {
             "type": "cppbuild",

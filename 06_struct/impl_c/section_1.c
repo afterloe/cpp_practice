@@ -9,6 +9,7 @@ typedef struct _person
 
 } Person;
 
+// 匿名 struct
 typedef struct
 {
     char name[32];

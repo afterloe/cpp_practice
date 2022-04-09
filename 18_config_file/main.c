@@ -10,5 +10,9 @@ int main(int argc, char **args)
     CONFIG * config = NULL;
     parse_file(&config, line, file_name);
 
+    printf("%s\n", get_value("ip", config, line));
+    printf("%s\n", get_value("size", config, line));
+    printf("%s\n", get_value("info_show", config, line));
+    
     return EXIT_SUCCESS;
 }

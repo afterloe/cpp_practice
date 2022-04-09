@@ -16,3 +16,4 @@ extern int get_file_line(char *);
 extern void get_file_name(char **, int, char **);
 extern int is_invalid_line(char *);
 extern void parse_file(CONFIG **, int, char *);
+extern char * get_value(char *, CONFIG *, int);

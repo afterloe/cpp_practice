@@ -81,3 +81,16 @@ void parse_file(CONFIG **config, int size, char * file_name)
     fclose(file);
     file = NULL;
 }
+
+char * get_value(char *key, CONFIG * config, int size)
+{
+    for (int idx = 0; idx < size; idx ++) {
+        if (strcmp(config->key, key) == 0)
+        {
+            return config->value;
+        }
+        config++;
+    }
+    
+    return NULL;
+}

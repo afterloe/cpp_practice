@@ -35,17 +35,29 @@ void init_linklist(struct _link_node **tail_ptr)
 
 void insert_member(struct _link_node **header, int value)
 {
-    if (NULL == (*header)->next)
+    // 使用尾部指针 实现尾插；
+    NODE *tail_ptr = *header;
+    while (NULL != tail_ptr->next)
     {
-        NODE *new_node = (NODE *)malloc(sizeof(struct _link_node));
-        new_node->num = value;
-        new_node->next = NULL;
-        (*header)->next = new_node;
+        tail_ptr = tail_ptr->next;
     }
-    else
-    {
-        return insert_member(&(*header)->next, value);
-    }
+    NODE *new_node = (NODE *)malloc(sizeof(struct _link_node));
+    new_node->num = value;
+    new_node->next = NULL;
+    tail_ptr->next = new_node;
+
+    // 使用递归的方式 实现尾插；
+    // if (NULL == (*header)->next)
+    // {
+    //     NODE *new_node = (NODE *)malloc(sizeof(struct _link_node));
+    //     new_node->num = value;
+    //     new_node->next = NULL;
+    //     (*header)->next = new_node;
+    // }
+    // else
+    // {
+    //     return insert_member(&(*header)->next, value);
+    // }
 }
 
 void printf_link_list(struct _link_node *tail_ptr)

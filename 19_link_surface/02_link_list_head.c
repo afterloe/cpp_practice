@@ -19,7 +19,8 @@ int main()
     srand(time(NULL));
     for (int i = 0; i < 10; i++)
     {
-        insert_member(&current, rand() % 100);
+        int num = rand() % 100;
+        insert_member(&current, num);
     }
     printf_link_list(current);
     return EXIT_FAILURE;
@@ -34,17 +35,24 @@ void init_linklist(struct _link_node **tail_ptr)
 
 void insert_member(struct _link_node **header, int value)
 {
-    NODE *new_node = (NODE *)malloc(sizeof(struct _link_node));
-    new_node->next = NULL;
-    new_node->num = value;
-    (*header)->next = new_node;
-    *header = new_node;
+    if (NULL == (*header)->next)
+    {
+        NODE *new_node = (NODE *)malloc(sizeof(struct _link_node));
+        new_node->num = value;
+        new_node->next = NULL;
+        (*header)->next = new_node;
+    }
+    else
+    {
+        return insert_member(&(*header)->next, value);
+    }
 }
 
 void printf_link_list(struct _link_node *tail_ptr)
 {
     printf("[");
-    while (tail_ptr->next != NULL)
+    tail_ptr = tail_ptr->next;
+    while (tail_ptr != NULL)
     {
         printf("%d ", tail_ptr->num);
         tail_ptr = tail_ptr->next;

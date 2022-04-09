@@ -47,15 +47,13 @@
         {
             "type": "cppbuild",
             "label": "Mac OS",
-            "command": "/usr/bin/c++",
+            "command": "/usr/bin/clang",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}.o",
-                "-std=c++11",
-                "-Wwritable-strings"
+                "${workspaceFolder}/out/${fileBasenameNoExtension}.app"
             ],
             "options": {
                 "cwd": "${fileDirname}"

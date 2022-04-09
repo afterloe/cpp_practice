@@ -10,9 +10,9 @@ int get_file_line(char *file_name)
 
     FILE *f = fopen(file_name, "r");
 
-    char buf[1024] = {0};
+    char buf[BIG_SIZE] = {0};
     int line = 0;
-    while (NULL != fgets(buf, 1024, f))
+    while (NULL != fgets(buf, BIG_SIZE, f))
     {
         if (is_invalid_line(buf))
         {
@@ -50,4 +50,34 @@ int is_invalid_line(char * str)
     }
 
     return 1;
+}
+
+void parse_file(CONFIG **config, int size, char * file_name)
+{
+    FILE * file = fopen(file_name, "r");
+    if (NULL == file)
+    {
+        return ;
+    }
+    CONFIG * tmp = (CONFIG *) malloc(sizeof(CONFIG) * size);
+    char *buf = (char *) malloc(BIG_SIZE);
+
+    int idx = 0;
+    while (fgets(buf, BIG_SIZE, file) != NULL)
+    {
+        if (!is_invalid_line(buf)) {
+            continue;
+        }
+        memset(tmp[idx].key, 0, SIZE);
+        memset(tmp[idx].value, 0, SIZE);
+        char * pos = strchr(buf, ':');
+        strncpy(tmp[idx].key, buf, pos - buf);
+        strncpy(tmp[idx].value, pos + 1, strlen(pos + 1) - 1);
+        idx++;
+    }
+
+    *config = tmp;
+
+    fclose(file);
+    file = NULL;
 }

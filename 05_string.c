@@ -20,32 +20,37 @@ int main()
         return EXIT_FAILURE;
     }
     printf("sub str is %d\n", ret);
+
+    char count[32] = {0};
+    int val = 4;
+    sprintf(count, "%d", val);
+    printf("buf=[%s]\n", count);
     return EXIT_SUCCESS;
 }
 
 void reversal(char *str)
 {
-    // int start = 0;
-    // int end = strlen(str) - 1;
-    // while (start < end)
-    // {
-    //     str[start] = str[start] ^ str[end];
-    //     str[end] = str[start] ^ str[end];
-    //     str[start] = str[start] ^ str[end];
-    //     start++;
-    //     end--;
-    // }
-
-    char *start = str;
-    char *end = str + strlen(str) - 1;
+    int start = 0;
+    int end = strlen(str) - 1;
     while (start < end)
     {
-        start = *start ^ *end;
-        end = *start ^ *end;
-        start = *start ^ *end;
+        str[start] = str[start] ^ str[end];
+        str[end] = str[start] ^ str[end];
+        str[start] = str[start] ^ str[end];
         start++;
         end--;
     }
+
+    // char *start = str;
+    // char *end = str + strlen(str) - 1;
+    // while (start < end)
+    // {
+    //     start = *start ^ *end;
+    //     end = *start ^ *end;
+    //     start = *start ^ *end;
+    //     start++;
+    //     end--;
+    // }
 }
 
 int find_char(char *src, char *sub)

@@ -45,7 +45,18 @@ int main()
     del(current, 200);
     printf("删除 200 后 \n");
     printf_link_list(current);
+    destroy(current);
+    current = NULL;
+    // insert(current, 20, 10);
+    // printf_link_list(current);
     return EXIT_FAILURE;
+}
+
+void destroy(struct _link_node *ptr)
+{
+    empty(ptr);
+    free(ptr);
+    ptr = NULL;
 }
 
 void empty(struct _link_node *ptr)

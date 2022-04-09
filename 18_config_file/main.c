@@ -1,4 +1,5 @@
 #include "enter.h"
+#include "code.h"
 
 int main(int argc, char **args)
 {
@@ -11,8 +12,10 @@ int main(int argc, char **args)
     parse_file(&config, line, file_name);
 
     printf("%s\n", get_value("ip", config, line));
-    printf("%s\n", get_value("size", config, line));
     printf("%s\n", get_value("info_show", config, line));
+
+    code_file(file_name, "./code_file.txt");
+    decode_file("./code_file.txt", "./decode_file.txt");
 
     free_space(config, file_name);
     

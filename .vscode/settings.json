@@ -71,6 +71,7 @@
         "stack": "cpp",
         "stdio.h": "c",
         "stdlib.h": "c",
-        "random": "c"
+        "random": "c",
+        "code.h": "c"
     }
 }

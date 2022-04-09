@@ -13,18 +13,23 @@ extern void push(struct _link_node *, int);
 extern void insert(struct _link_node *, int, int);
 extern void printf_link_list(struct _link_node *);
 extern void del(struct _link_node *, int);
+extern void empty(struct _link_node *);
+extern void destroy(struct _link_node *);
 
 int main()
 {
     NODE *current = init_linklist();
 
     // 连续尾插
-    // srand(time(NULL));
-    // for (int i = 0; i < 10; i++)
-    // {
-    //     int num = rand() % 100;
-    //     push(&current, num);
-    // }
+    srand(time(NULL));
+    for (int i = 0; i < 10; i++)
+    {
+        int num = rand() % 100;
+        push(current, num);
+    }
+    printf_link_list(current);
+    empty(current);
+    printf_link_list(current);
 
     push(current, 10);
     push(current, 20);
@@ -41,6 +46,22 @@ int main()
     printf("删除 200 后 \n");
     printf_link_list(current);
     return EXIT_FAILURE;
+}
+
+void empty(struct _link_node *ptr)
+{
+    NODE *prev = ptr;
+    NODE *current = prev->next;
+
+    while (current != NULL)
+    {
+        NODE * next = current->next;
+        free(current);
+        current = next;
+    }
+
+    current = NULL;
+    ptr->next = NULL;
 }
 
 void del(struct _link_node *ptr, int value)

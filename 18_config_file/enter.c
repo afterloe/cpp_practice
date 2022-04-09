@@ -14,7 +14,10 @@ int get_file_line(char *file_name)
     int line = 0;
     while (NULL != fgets(buf, 1024, f))
     {
-        line++;
+        if (is_invalid_line(buf))
+        {
+            line++;
+        }
     }
 
     fclose(f);
@@ -37,4 +40,14 @@ void get_file_name(char **dst, int argc, char **args)
     }
 
     *dst = file_name;
+}
+
+int is_invalid_line(char * str)
+{
+    if (str[0] == '\n' || strchr(str, ':') == NULL)
+    {
+        return 0;
+    }
+
+    return 1;
 }

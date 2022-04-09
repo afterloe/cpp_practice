@@ -1,0 +1,10 @@
+# 系统ip
+ip:192.168.2.1
+# 写入位置
+where:/usr/local/lib
+# 空间大小
+size:29300
+# 读写状态
+status:false
+# 简介
+info_show:进行有效的配置读写展示

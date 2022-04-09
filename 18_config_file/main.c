@@ -13,6 +13,8 @@ int main(int argc, char **args)
     printf("%s\n", get_value("ip", config, line));
     printf("%s\n", get_value("size", config, line));
     printf("%s\n", get_value("info_show", config, line));
+
+    free_space(config, file_name);
     
     return EXIT_SUCCESS;
 }

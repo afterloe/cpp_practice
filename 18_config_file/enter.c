@@ -36,13 +36,13 @@ void get_file_name(char **dst, int argc, char **args)
     else
     {
         args++;
-        file_name = *args;
+        strcpy(file_name, *args);
     }
 
     *dst = file_name;
 }
 
-int is_invalid_line(char * str)
+int is_invalid_line(char *str)
 {
     if (str[0] == '\n' || strchr(str, ':') == NULL)
     {
@@ -52,25 +52,26 @@ int is_invalid_line(char * str)
     return 1;
 }
 
-void parse_file(CONFIG **config, int size, char * file_name)
+void parse_file(CONFIG **config, int size, char *file_name)
 {
-    FILE * file = fopen(file_name, "r");
+    FILE *file = fopen(file_name, "r");
     if (NULL == file)
     {
-        return ;
+        return;
     }
-    CONFIG * tmp = (CONFIG *) malloc(sizeof(CONFIG) * size);
-    char *buf = (char *) malloc(BIG_SIZE);
+    CONFIG *tmp = (CONFIG *)malloc(sizeof(CONFIG) * size);
+    char *buf = (char *)malloc(BIG_SIZE);
 
     int idx = 0;
     while (fgets(buf, BIG_SIZE, file) != NULL)
     {
-        if (!is_invalid_line(buf)) {
+        if (!is_invalid_line(buf))
+        {
             continue;
         }
         memset(tmp[idx].key, 0, SIZE);
         memset(tmp[idx].value, 0, SIZE);
-        char * pos = strchr(buf, ':');
+        char *pos = strchr(buf, ':');
         strncpy(tmp[idx].key, buf, pos - buf);
         strncpy(tmp[idx].value, pos + 1, strlen(pos + 1) - 1);
         idx++;
@@ -80,17 +81,40 @@ void parse_file(CONFIG **config, int size, char * file_name)
 
     fclose(file);
     file = NULL;
+    free(buf);
+    buf = NULL;
 }
 
-char * get_value(char *key, CONFIG * config, int size)
+char *get_value(char *key, CONFIG *config, int size)
 {
-    for (int idx = 0; idx < size; idx ++) {
+    for (int idx = 0; idx < size; idx++)
+    {
         if (strcmp(config->key, key) == 0)
         {
             return config->value;
         }
         config++;
     }
-    
+
     return NULL;
+}
+
+void free_space(CONFIG *config, char *file_name)
+{
+    if (NULL == config)
+    {
+        return;
+    }
+
+    free(config);
+
+    if (NULL == file_name)
+    {
+        return;
+    }
+
+    free(file_name);
+
+    config = NULL;
+    file_name = NULL;
 }

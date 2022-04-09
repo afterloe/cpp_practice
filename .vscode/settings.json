@@ -72,6 +72,7 @@
         "stdio.h": "c",
         "stdlib.h": "c",
         "random": "c",
-        "code.h": "c"
+        "code.h": "c",
+        "ranges": "c"
     }
 }

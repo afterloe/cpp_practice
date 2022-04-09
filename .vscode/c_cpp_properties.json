@@ -6,7 +6,7 @@
                 "${workspaceFolder}/**" //此处会匹配工作文件下的所有文件
             ],
             "defines": [],
-            "compilerPath": "/usr/bin/clang++-11",
+            "compilerPath": "/usr/bin/clang",
             "cStandard": "c17",
             "cppStandard": "c++14",
             "intelliSenseMode": "linux-clang-x64"

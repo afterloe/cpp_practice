@@ -73,6 +73,7 @@
         "stdlib.h": "c",
         "random": "c",
         "code.h": "c",
-        "ranges": "c"
+        "ranges": "c",
+        "game_impl.h": "c"
     }
 }

@@ -3,7 +3,7 @@
         {
             "type": "cppbuild",
             "label": "Linux",
-            "command": "/usr/bin/c++",
+            "command": "/usr/bin/clang",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
@@ -18,7 +18,7 @@
                 "$gcc"
             ],
             "group": "build",
-            "detail": "/usr/bin/c++"
+            "detail": "/usr/bin/clang"
         },
         {
             "type": "cppbuild",
@@ -40,32 +40,8 @@
             ],
             "group": {
                 "kind": "build",
-                "isDefault": true
             },
             "detail": "执行windows下编译的成果"
-        },
-        {
-            "type": "cppbuild",
-            "label": "Mac OS",
-            "command": "/usr/bin/clang",
-            "args": [
-                "-fdiagnostics-color=always",
-                "-g",
-                "${file}",
-                "-o",
-                "${workspaceFolder}/out/${fileBasenameNoExtension}.app"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "detail": "执行Mac OS下编译的成果"
         }
     ],
     "version": "2.0.0"

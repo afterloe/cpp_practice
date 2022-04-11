@@ -1,5 +1,6 @@
 #include "game_impl.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include <time.h>
 
@@ -7,9 +8,9 @@ void WORD_INIT_IMPL(void *config)
 {
     printf("\n加载游戏配置\n");
     int *i = (int *)config;
-    while (i != 0)
+    for (int idx = 0; idx < 3; idx++)
     {
-        printf("游戏配置： %d \n", i);
+        printf("游戏配置： %d \n", *i);
         i++;
     }
 }
@@ -43,8 +44,8 @@ int FIGHT_IMPL(void *player, int game_difficult)
     }
 
     ptr->exp += add_exp;
-    ptr->level = ptr->level + ptr->exp / 10;
-    if (ptr->exp > 100)
+    ptr->level = ptr->level + ptr->exp / 100;
+    if (ptr->exp >= 100)
     {
         ptr->exp = ptr->exp - 100;
     }
@@ -65,7 +66,7 @@ void PLAYER_INFO_IMPL(void *player)
 
 void EXIT_WORLD_IMPL(void *player)
 {
-    printf("保持游戏信息 ... \n");
+    printf("保存游戏信息 ... \n");
 }
 
 int is_win(int percentage, int game_difficult)

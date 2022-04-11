@@ -4,6 +4,12 @@
 #include <time.h>
 #include <string.h>
 
+typedef struct
+{
+    char name[32];
+    int age;
+} Person;
+
 void print_array(void *ptr, int ele_size, int len, void (*func)(void *))
 {
     char *p = ptr;
@@ -64,6 +70,24 @@ void print_int(void *ptr)
     printf("%d ", *data);
 }
 
+int compare_person(void *a, void *b)
+{
+    Person *p1 = (Person *)a;
+    Person *p2 = (Person *)b;
+
+    if (p1->age > p2->age)
+    {
+        return 1;
+    }
+    return 0;
+}
+
+void print_person(void *ptr)
+{
+    Person *p = (Person *)ptr;
+    printf("%s -> %d | ", p->name, p->age);
+}
+
 void test01()
 {
     srand(time(NULL));
@@ -79,8 +103,25 @@ void test01()
     print_array(arr, sizeof(int), sizeof arr, print_int);
 }
 
+void test02()
+{
+    Person p[5] = {
+        {"aaaa", 5},
+        {"abbb", 7},
+        {"accc", 10},
+        {"addd", 12},
+        {"addd", 8},
+    };
+    printf("排序前: \n");
+    print_array(p, sizeof(Person), sizeof p, print_person);
+    printf("排序后: \n");
+    sort(p, sizeof(Person), sizeof p, compare_person);
+    print_array(p, sizeof(Person), sizeof p, print_person);
+}
+
 int main()
 {
     test01();
+    test02();
     return EXIT_SUCCESS;
 }

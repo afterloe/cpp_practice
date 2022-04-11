@@ -15,6 +15,8 @@ extern void printf_link_list(struct _link_node *);
 extern void del(struct _link_node *, int);
 extern void empty(struct _link_node *);
 extern void destroy(struct _link_node *);
+extern void reversal(struct _link_node *);
+extern void sizeof_link_list(struct _link_node *);
 
 int main()
 {
@@ -27,7 +29,13 @@ int main()
         int num = rand() % 100;
         push(current, num);
     }
+    printf("链表初始化 \n");
     printf_link_list(current);
+    sizeof_link_list(current);
+    printf("反转链表 \n");
+    reversal(current);
+    printf_link_list(current);
+    printf("清空链表 \n");
     empty(current);
     printf_link_list(current);
 
@@ -66,7 +74,7 @@ void empty(struct _link_node *ptr)
 
     while (current != NULL)
     {
-        NODE * next = current->next;
+        NODE *next = current->next;
         free(current);
         current = next;
     }
@@ -165,4 +173,20 @@ void printf_link_list(struct _link_node *tail_ptr)
         tail_ptr = tail_ptr->next;
     }
     printf("]\n");
+}
+
+void sizeof_link_list(struct _link_node *header_ptr)
+{
+    int size = 0;
+    NODE *current = header_ptr->next;
+    while (current != NULL)
+    {
+        size++;
+        current = current->next;
+    }
+    printf("size is %d\n", size);
+}
+
+void reversal(struct _link_node *header_ptr)
+{
 }

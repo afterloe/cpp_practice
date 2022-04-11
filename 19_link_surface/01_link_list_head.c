@@ -189,4 +189,18 @@ void sizeof_link_list(struct _link_node *header_ptr)
 
 void reversal(struct _link_node *header_ptr)
 {
+    NODE *prev = NULL;
+    NODE *current = header_ptr->next;
+    NODE *next = NULL;
+    while (current != NULL)
+    {
+        // 改变指针指向
+        next = current->next;
+        current->next = prev;
+
+        // 移动指针
+        prev = current;
+        current = next;
+    }
+    header_ptr->next = prev;
 }

@@ -20,6 +20,8 @@ typedef void *LinkedList;
 extern LinkedList init();
 extern void insert(LinkedList, void *, int);
 extern void info(LinkedList, void (*)(void *));
+extern void remove_by_pos(LinkedList, int);
+extern void remove_by_value(LinkedList, void *, int (*)(void *));
 
 #endif
 
@@ -49,6 +51,10 @@ int main()
     insert(list, &p3, 0);
     insert(list, &p4, -1);
 
+    info(list, print_person);
+
+    printf("删除 第三个元素 \n ");
+    remove_by_pos(list, 1);
     info(list, print_person);
 
     return EXIT_SUCCESS;
@@ -102,4 +108,28 @@ void info(LinkedList ptr, void (*print_fun)(void *))
         print_fun(current);
     }
     printf("]\n");
+}
+
+void remove_by_pos(LinkedList ptr, int pos)
+{
+    if (NULL == ptr)
+    {
+        return;
+    }
+    struct linked_list *list = ptr;
+    if (pos < 0 || pos > list->size)
+    {
+        return;
+    }
+
+    struct linked_node *prv = &list->header;
+    struct linked_node *current = prv->next;
+    for (int idx = 0; idx < pos; idx++)
+    {
+        prv = current;
+        current = current->next;
+    }
+    prv->next = current->next;
+    current = NULL;
+    list->size--;
 }

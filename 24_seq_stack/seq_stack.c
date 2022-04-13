@@ -1,10 +1,10 @@
+#pragma once
+
 #include <stdlib.h>
 #include <stdio.h>
-
 #include <string.h>
 
-#ifndef __STACK
-#define __STACK
+#include "seq_stack.h"
 
 #define MAX 1024
 
@@ -13,77 +13,6 @@ struct seq_stack
     void *data[MAX];
     int size;
 };
-
-typedef void *Seq_Stack;
-
-extern Seq_Stack init();
-extern void push(Seq_Stack, void *);
-extern void pop(Seq_Stack);
-extern void *top_seq_stack(Seq_Stack);
-extern int size(Seq_Stack);
-extern int is_empty(Seq_Stack);
-extern void empty(Seq_Stack);
-extern void destroy(Seq_Stack);
-
-#endif
-
-typedef struct
-{
-    char name[32];
-    int age;
-} Person;
-
-void print_person(void *data)
-{
-    Person *p = data;
-    printf("%s - %d \n", p->name, p->age);
-}
-
-int main()
-{
-    Person p1 = {"aaa", 10};
-    Person p2 = {"bbb", 20};
-    Person p3 = {"ccc", 30};
-    Person p4 = {"ddd", 40};
-    Person p5 = {"eee", 50};
-
-    Seq_Stack stack = init();
-    push(stack, &p1);
-    printf("Seq Stack Size :: %d \n", size(stack));
-    push(stack, &p2);
-    printf("Seq Stack Size :: %d \n", size(stack));
-    push(stack, &p3);
-    printf("Seq Stack Size :: %d \n", size(stack));
-    push(stack, &p4);
-    printf("Seq Stack Size :: %d \n", size(stack));
-    push(stack, &p5);
-    printf("Seq Stack Size :: %d \n", size(stack));
-
-    while (!is_empty(stack))
-    {
-        Person *p = top_seq_stack(stack);
-        pop(stack);
-        print_person(p);
-    }
-
-    push(stack, &p1);
-    printf("Seq Stack Size :: %d \n", size(stack));
-    push(stack, &p2);
-    printf("Seq Stack Size :: %d \n", size(stack));
-
-    printf("清空栈\n");
-    empty(stack);
-    printf("Seq Stack Size :: %d \n", size(stack));
-
-    push(stack, &p1);
-    printf("Seq Stack Size :: %d \n", size(stack));
-    push(stack, &p2);
-    printf("Seq Stack Size :: %d \n", size(stack));
-
-    destroy(stack);
-
-    return EXIT_SUCCESS;
-}
 
 Seq_Stack init()
 {

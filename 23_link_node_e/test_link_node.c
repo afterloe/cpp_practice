@@ -23,6 +23,7 @@ extern void insert(LinkedList, void *, int);
 extern void info(LinkedList, void (*)(void *));
 extern void remove_by_pos(LinkedList, int);
 extern void remove_by_value(LinkedList, void *, int (*)(void *, void *));
+extern void empty(LinkedList);
 
 #endif
 
@@ -67,6 +68,13 @@ int main()
     printf("删除 ddd 元素 \n");
     Person target = {NULL, "ddd", 40};
     remove_by_value(list, &target, compare_person);
+    info(list, print_person);
+    printf("清空链表 \n");
+    empty(list);
+    info(list, print_person);
+    printf("再插入 \n");
+    insert(list, &p3, 0);
+    insert(list, &p4, -1);
     info(list, print_person);
 
     return EXIT_SUCCESS;
@@ -168,4 +176,17 @@ void remove_by_value(LinkedList ptr, void *data, int (*compare)(void *, void *))
             return;
         }
     }
+}
+
+void empty(LinkedList ptr)
+{
+    if (NULL == ptr)
+    {
+        return;
+    }
+
+    struct linked_list *list = ptr;
+    list->size = 0;
+    struct linked_node *current = &list->header;
+    current->next = NULL;
 }

@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #ifndef __link_node
 #define __link_node
@@ -21,7 +22,7 @@ extern LinkedList init();
 extern void insert(LinkedList, void *, int);
 extern void info(LinkedList, void (*)(void *));
 extern void remove_by_pos(LinkedList, int);
-extern void remove_by_value(LinkedList, void *, int (*)(void *));
+extern void remove_by_value(LinkedList, void *, int (*)(void *, void *));
 
 #endif
 
@@ -36,6 +37,13 @@ void print_person(void *data)
 {
     Person *p = data;
     printf("%s - %d | ", p->name, p->age);
+}
+
+int compare_person(void *b, void *a)
+{
+    Person *p1 = a;
+    Person *p2 = b;
+    return strcmp(p1->name, p2->name) == 0 && p1->age == p2->age;
 }
 
 int main()
@@ -55,6 +63,10 @@ int main()
 
     printf("删除 第三个元素 \n ");
     remove_by_pos(list, 1);
+    info(list, print_person);
+    printf("删除 ddd 元素 \n");
+    Person target = {NULL, "ddd", 40};
+    remove_by_value(list, &target, compare_person);
     info(list, print_person);
 
     return EXIT_SUCCESS;
@@ -132,4 +144,28 @@ void remove_by_pos(LinkedList ptr, int pos)
     prv->next = current->next;
     current = NULL;
     list->size--;
+}
+
+void remove_by_value(LinkedList ptr, void *data, int (*compare)(void *, void *))
+{
+    if (NULL == ptr)
+    {
+        return;
+    }
+
+    struct linked_list *list = ptr;
+    if (NULL == data)
+    {
+        return;
+    }
+    struct linked_node *current = &list->header;
+    for (int idx = 0; idx < list->size; idx++)
+    {
+        current = current->next;
+        if (compare(current, data))
+        {
+            remove_by_pos(ptr, idx);
+            return;
+        }
+    }
 }

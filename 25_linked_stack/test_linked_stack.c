@@ -11,7 +11,7 @@ struct linked_stack_node
 
 struct linked_stack
 {
-    struct linked_stack_node *head;
+    struct linked_stack_node head;
     int size;
 };
 
@@ -57,7 +57,7 @@ int main()
     push(link_stack, &p4);
     push(link_stack, &p5);
 
-    printf("Seq Stack Size :: %d \n", size(link_stack));
+    printf("linked stack Size :: %d \n", size(link_stack));
     while (!is_empty(link_stack))
     {
         void *data = top_linked_stack(link_stack);
@@ -71,12 +71,12 @@ int main()
 
     printf("清空栈\n");
     empty(link_stack);
-    printf("Seq Stack Size :: %d \n", size(link_stack));
+    printf("linked stack Size :: %d \n", size(link_stack));
 
     push(link_stack, &p1);
-    printf("Seq Stack Size :: %d \n", size(link_stack));
+    printf("linked stack Size :: %d \n", size(link_stack));
     push(link_stack, &p2);
-    printf("Seq Stack Size :: %d \n", size(link_stack));
+    printf("linked stack Size :: %d \n", size(link_stack));
 
     destroy(link_stack);
 
@@ -86,7 +86,7 @@ int main()
 LinkedStack init()
 {
     struct linked_stack *ptr = malloc(sizeof(struct linked_stack));
-    ptr->head = NULL;
+    ptr->head.next = NULL;
     ptr->size = 0;
 
     return ptr;
@@ -100,10 +100,10 @@ void push(LinkedStack ptr, void *data)
     }
 
     struct linked_stack *stack = ptr;
-    struct linked_stack_node *current = stack->head;
     struct linked_stack_node *node = data;
-    node->next = current;
-    stack->head = data;
+
+    node->next = stack->head.next;
+    stack->head.next = node;
     stack->size++;
 }
 
@@ -119,12 +119,8 @@ void pop(LinkedStack ptr)
     {
         return;
     }
-    struct linked_stack_node *current = stack->head;
-    for (int idx = 0; idx < stack->size - 1; idx++)
-    {
-        current = current->next;
-    }
-    current->next = NULL;
+    struct linked_stack_node *first = stack->head.next;
+    stack->head.next = first->next;
     stack->size--;
 }
 
@@ -135,12 +131,7 @@ void *top_linked_stack(LinkedStack ptr)
         return NULL;
     }
     struct linked_stack *stack = ptr;
-    struct linked_stack_node *current = stack->head;
-    for (int idx = 0; idx < stack->size - 1; idx++)
-    {
-        current = current->next;
-    }
-    return current->next;
+    return stack->head.next;
 }
 
 int size(LinkedStack ptr)
@@ -162,9 +153,9 @@ int is_empty(LinkedStack ptr)
     struct linked_stack *stack = ptr;
     if (0 == stack->size)
     {
-        return 0;
+        return 1;
     }
-    return 1;
+    return 0;
 }
 
 void empty(LinkedStack ptr)
@@ -175,7 +166,7 @@ void empty(LinkedStack ptr)
     }
 
     struct linked_stack *stack = ptr;
-    stack->head = NULL;
+    stack->head.next = NULL;
     stack->size = 0;
 }
 

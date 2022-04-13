@@ -24,6 +24,7 @@ extern void info(LinkedList, void (*)(void *));
 extern void remove_by_pos(LinkedList, int);
 extern void remove_by_value(LinkedList, void *, int (*)(void *, void *));
 extern void empty(LinkedList);
+extern void destroy(LinkedList);
 
 #endif
 
@@ -76,7 +77,9 @@ int main()
     insert(list, &p3, 0);
     insert(list, &p4, -1);
     info(list, print_person);
-
+    destroy(list);
+    info(list, print_person);
+    insert(list, &p4, -1);
     return EXIT_SUCCESS;
 }
 
@@ -189,4 +192,15 @@ void empty(LinkedList ptr)
     list->size = 0;
     struct linked_node *current = &list->header;
     current->next = NULL;
+}
+
+void destroy(LinkedList ptr)
+{
+    if (NULL == ptr)
+    {
+        return;
+    }
+    empty(ptr);
+    free(ptr);
+    ptr = NULL;
 }

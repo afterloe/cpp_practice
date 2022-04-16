@@ -6,10 +6,10 @@
                 "${workspaceFolder}/**" //此处会匹配工作文件下的所有文件
             ],
             "defines": [],
-            "compilerPath": "/usr/bin/clang",
+            "compilerPath": "/usr/bin/c++",
             "cStandard": "c17",
-            "cppStandard": "c++14",
-            "intelliSenseMode": "linux-clang-x64"
+            "cppStandard": "c++17",
+            "intelliSenseMode": "macos-clang-x64"
         },
         {
             "name": "Win32",
@@ -26,22 +26,6 @@
             "cppStandard": "c++17",
             "intelliSenseMode": "windows-gcc-x86"
         }
-        // {
-        //     "name": "Mac",
-        //     "includePath": [
-        //         "${workspaceFolder}/**",
-        //         "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/13.1.6/include",
-        //         "/usr/local/include/opencv4"
-        //     ],
-        //     "defines": [],
-        //     "macFrameworkPath": [
-        //         "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks"
-        //     ],
-        //     "compilerPath": "/usr/bin/clang",
-        //     "cStandard": "c17",
-        //     "cppStandard": "c++17",
-        //     "intelliSenseMode": "macos-clang-x64"
-        // }
     ],
     "version": 4
 }

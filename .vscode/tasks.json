@@ -2,6 +2,27 @@
     "tasks": [
         {
             "type": "cppbuild",
+            "label": "Mac cpp",
+            "command": "/usr/bin/c++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${workspaceFolder}/out/${fileBasenameNoExtension}.app",
+                "-std=c++17"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "/usr/bin/c++"
+        },
+        {
+            "type": "cppbuild",
             "label": "Linux",
             "command": "/usr/bin/clang",
             "args": [

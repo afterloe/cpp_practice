@@ -76,6 +76,7 @@
         "ranges": "c",
         "game_impl.h": "c",
         "*.tcc": "c",
-        "dynamic_array.h": "c"
+        "dynamic_array.h": "c",
+        "list": "cpp"
     }
 }

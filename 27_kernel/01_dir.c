@@ -2,6 +2,8 @@
 #include <stdio.h>
 
 #include <unistd.h>
+#include <sys/types.h>
+#include <dirent.h>
 
 int main()
 {
@@ -18,5 +20,27 @@ int main()
 
     getcwd(pwd, sizeof pwd);
     printf("new PWD: %s\n", pwd);
+
+    DIR *dir = opendir(pwd);
+    if (NULL == dir)
+    {
+        perror("open dir failed: ");
+    }
+    printf("open %s success. \n", pwd);
+
+    struct dirent *entry = NULL;
+    
+    while (NULL != (entry = readdir(dir)))
+    {
+        printf("%s \n", entry->d_name);
+    }
+
+    flag = closedir(dir);
+    if (0 != flag)
+    {
+        perror("close dir failed: ");
+    }
+    printf("关闭目录成功 . \n");
+
     return EXIT_SUCCESS;
 }

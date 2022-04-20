@@ -13,8 +13,8 @@ int main()
 
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
-    addr.sin_port = htons(80);
-    char ip[32] = "192.168.2.157";
+    addr.sin_port = htons(8000);
+    char ip[32] = "127.0.0.1";
     const char *target = (const char *)&addr.sin_addr.s_addr;
     inet_pton(AF_INET, target, ip);
 
@@ -24,11 +24,11 @@ int main()
     while (1)
     {
         // 写数据
-        // int n = read(STDIN_FILENO, chunk, sizeof chunk);
-        // write(socket_fd, chunk, n);
+        int n = read(STDIN_FILENO, chunk, sizeof chunk);
+        write(socket_fd, chunk, n);
 
         // 读数据
-        int n = read(socket_fd, chunk, sizeof chunk);
+        n = read(socket_fd, chunk, sizeof chunk);
         write(STDOUT_FILENO, chunk, n);
     }
 

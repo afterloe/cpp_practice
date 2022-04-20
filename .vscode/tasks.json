@@ -2,27 +2,6 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "Mac cpp",
-            "command": "/usr/bin/c++",
-            "args": [
-                "-fdiagnostics-color=always",
-                "-g",
-                "${file}",
-                "-o",
-                "${workspaceFolder}/out/${fileBasenameNoExtension}.app",
-                "-std=c++17"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": "build",
-            "detail": "/usr/bin/c++"
-        },
-        {
-            "type": "cppbuild",
             "label": "Linux",
             "command": "/usr/bin/clang",
             "args": [
@@ -40,29 +19,6 @@
             ],
             "group": "build",
             "detail": "/usr/bin/clang"
-        },
-        {
-            "type": "cppbuild",
-            "label": "Windows",
-            "command": "C:/mingw64/bin/c++",
-            "args": [
-                "-fdiagnostics-color=always",
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}/${fileBasenameNoExtension}.exe",
-                "-std=c++17"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": {
-                "kind": "build",
-            },
-            "detail": "执行windows下编译的成果"
         }
     ],
     "version": "2.0.0"

@@ -9,6 +9,10 @@ int main()
 {
     char name[64] = "/home/afterloe/Opts/usb_simulation/config.ini.example";
     printf("file:: %s \n", name);
+
+    int is_ok = access(name, F_OK); // 测试文件属性 F_OK - 文件是否存在
+    printf("access: %d\n", is_ok);
+
     struct stat buf;
     int file_stat = stat(name, &buf);
 

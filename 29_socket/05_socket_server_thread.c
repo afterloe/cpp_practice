@@ -27,6 +27,10 @@ int main()
         return EXIT_FAILURE;
     }
 
+    pthread_attr_t attr;
+    pthread_attr_init(&attr);
+    pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
+
     struct sockaddr_in server;
     server.sin_family = AF_INET;
     server.sin_port = htons(8000);
@@ -58,7 +62,7 @@ int main()
         }
         runtime->cfd = cfd;
         pthread_t pthid;
-        pthread_create(&pthid, NULL, run, runtime);
+        pthread_create(&pthid, &attr, run, runtime);
     }
 
     close(lfd);

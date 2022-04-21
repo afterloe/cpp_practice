@@ -69,14 +69,20 @@
         "deque": "cpp",
         "iomanip": "cpp",
         "stack": "cpp",
+        "list": "cpp",
         "stdio.h": "c",
         "stdlib.h": "c",
         "random": "c",
+        "string.h": "c",
+        "sys/socket.h": "c",
+        "sys/types.h": "c",
+        "sys/wait.h": "c",
+        "unistd.h": "c",
         "code.h": "c",
         "ranges": "c",
         "game_impl.h": "c",
         "*.tcc": "c",
         "dynamic_array.h": "c",
-        "list": "cpp"
+        "signal.h": "c"
     }
 }

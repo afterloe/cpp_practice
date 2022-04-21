@@ -5,12 +5,21 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <sys/types.h>
+#include <signal.h>
+#include <sys/wait.h>
 
-#include <wait.h>
 #include <unistd.h>
+
+extern void free_process(int);
 
 int main()
 {
+    // 创建信号监听
+    sigset_t set;
+    sigemptyset(&set);
+    sigaddset(&set, SIGCHLD);
+    sigprocmask(SIG_BLOCK, &set, NULL);
+
     // 创建socket
     int sock_lfd = socket(AF_INET, SOCK_STREAM, 0);
     if (-1 == sock_lfd)
@@ -42,7 +51,7 @@ int main()
     {
         current = malloc(sizeof(struct sockaddr_in));
         socklen_t len = sizeof current;
-        int sock_cfd = accept(sock_lfd, (struct sockaddr *)&current, &len);
+        int sock_cfd = accept(sock_lfd, (struct sockaddr *)current, &len);
         // fork
         pid_t pid = fork();
         if (pid < 0)
@@ -56,16 +65,19 @@ int main()
             // 子进程
             close(sock_lfd);
             char ip[16] = {0};
+            unsigned short p = ntohs(current->sin_port);
             printf("client accept from %s", inet_ntop(AF_INET, &(current->sin_addr.s_addr), ip, sizeof ip));
-            printf(":%d \n", ntohs(current->sin_port));
+            printf(":%d \n", p);
             char chunk[1024] = {0};
             while (1)
             {
                 memset(chunk, 0, sizeof chunk);
                 int n = read(sock_cfd, chunk, sizeof chunk);
-                if (0 == n) 
+                if (0 == n)
                 {
-                    printf("client[pid=%d] exit.", getpid());
+                    free(current);
+                    current = NULL;
+                    close(sock_cfd);
                     exit(0);
                 }
                 write(STDOUT_FILENO, chunk, n);
@@ -76,13 +88,39 @@ int main()
         {
             // 主进程
             close(sock_cfd);
+            // 回收资源
+            // step 1 - 注册信号回调函数
+            struct sigaction act;
+            act.sa_flags = 0;
+            act.sa_handler = free_process;
+            sigemptyset(&act.sa_mask);
+            sigaction(SIGCHLD, &act, NULL);
+            sigprocmask(SIG_UNBLOCK, &set, NULL);
+
         }
     }
- 
+
     // clsoe
     close(sock_lfd);
 
-    // wait
-    // 回收资源
     return EXIT_SUCCESS;
+}
+
+void free_process(int sig)
+{
+    pid_t pid;
+    while (1)
+    {
+        pid = waitpid(-1, NULL, WNOHANG);
+        if (pid <= 0)
+        {
+            // <0 子进程全部退出
+            // =0 没有进程退出
+            break;
+        }
+        else
+        {
+            printf("child pid[%d] exit. \n", pid);
+        }
+    }
 }

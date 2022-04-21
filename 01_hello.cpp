@@ -6,5 +6,5 @@ int main(void)
 {
     cout << "hello world!" << endl;
     system("pause"); // 等待输入并退出
-    return 0;
+    return EXIT_SUCCESS;
 }

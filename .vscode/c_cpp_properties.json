@@ -6,25 +6,10 @@
                 "${workspaceFolder}/**" //此处会匹配工作文件下的所有文件
             ],
             "defines": [],
-            "compilerPath": "/usr/bin/c++",
-            "cStandard": "c17",
-            "cppStandard": "c++17",
-            "intelliSenseMode": "macos-clang-x64"
-        },
-        {
-            "name": "Win32",
-            "includePath": [
-                "${workspaceFolder}/**"
-            ],
-            "defines": [
-                "_DEBUG",
-                "UNICODE",
-                "_UNICODE"
-            ],
-            "compilerPath": "C:/mingw64/bin/gcc.exe",
+            "compilerPath": "/usr/bin/clang",
             "cStandard": "c11",
-            "cppStandard": "c++17",
-            "intelliSenseMode": "windows-gcc-x86"
+            "cppStandard": "c++11",
+            "intelliSenseMode": "linux-clang-x64"
         }
     ],
     "version": 4

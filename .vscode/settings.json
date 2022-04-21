@@ -83,6 +83,10 @@
         "game_impl.h": "c",
         "*.tcc": "c",
         "dynamic_array.h": "c",
-        "signal.h": "c"
+        "signal.h": "c",
+        "errno.h": "c",
+        "strings.h": "c",
+        "error.h": "c",
+        "cerrno": "c"
     }
 }

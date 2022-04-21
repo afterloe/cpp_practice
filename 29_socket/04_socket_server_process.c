@@ -9,6 +9,7 @@
 #include <sys/wait.h>
 
 #include <unistd.h>
+#include <errno.h>
 
 extern void free_process(int);
 
@@ -51,7 +52,19 @@ int main()
     {
         current = malloc(sizeof(struct sockaddr_in));
         socklen_t len = sizeof current;
-        int sock_cfd = accept(sock_lfd, (struct sockaddr *)current, &len);
+        int sock_cfd;
+    again:
+        sock_cfd = accept(sock_lfd, (struct sockaddr *)current, &len);
+        if (sock_cfd < 0)
+        {
+            if ((errno == ECONNABORTED) || (errno == EINTR))
+                goto again;
+            else
+            {
+                perror("accept error:: ");
+                exit(-1);
+            }
+        }
         // fork
         pid_t pid = fork();
         if (pid < 0)
@@ -96,7 +109,6 @@ int main()
             sigemptyset(&act.sa_mask);
             sigaction(SIGCHLD, &act, NULL);
             sigprocmask(SIG_UNBLOCK, &set, NULL);
-
         }
     }
 

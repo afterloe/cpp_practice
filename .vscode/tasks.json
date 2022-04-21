@@ -10,6 +10,8 @@
                 "${file}",
                 "-o",
                 "${workspaceFolder}/out/${fileBasenameNoExtension}.app",
+                "-I",
+                "${workspaceFolder}",
                 "-lpthread"
             ],
             "options": {

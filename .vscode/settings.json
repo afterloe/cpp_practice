@@ -87,6 +87,7 @@
         "errno.h": "c",
         "strings.h": "c",
         "error.h": "c",
-        "cerrno": "c"
+        "cerrno": "c",
+        "pthread.h": "c"
     }
 }

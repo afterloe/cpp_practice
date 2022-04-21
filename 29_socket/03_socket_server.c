@@ -23,30 +23,31 @@ int main()
 
     listen(socket_lfd, 128);
     printf("socket server init.\n");
-    // while (1)
-    // {
-        printf("wait accept ! \n");
-        struct sockaddr_in client;
-        socklen_t len = sizeof client;
-        int cfd = accept(socket_lfd, (struct sockaddr *)&client, &len);
-        char client_ip[16];
-        printf("accept ip:: %s", inet_ntop(AF_INET, &client.sin_addr.s_addr, client_ip, sizeof client_ip));
-        printf(" port:: %d \n", ntohs(client.sin_port));
 
-        char chunk[1024];
-        while (1)
+    printf("wait accept ! \n");
+    struct sockaddr_in client;
+    socklen_t len = sizeof client;
+    int cfd = accept(socket_lfd, (struct sockaddr *)&client, &len);
+    char client_ip[16];
+    printf("accept ip:: %s", inet_ntop(AF_INET, &client.sin_addr.s_addr, client_ip, sizeof client_ip));
+    printf(" port:: %d \n", ntohs(client.sin_port));
+
+    char chunk[1024];
+    while (1)
+    {
+        memset(chunk, 0, sizeof chunk);
+        int n = read(cfd, chunk, sizeof chunk);
+        if (0 == n)
         {
-            memset(chunk, 0, sizeof chunk);
-            int n = read(cfd, chunk, sizeof chunk);
-            write(STDOUT_FILENO, chunk, n);
-
-            // echo
-            write(cfd, chunk, n);
+            printf("socket closed.\n");
+            break;
         }
+        write(STDOUT_FILENO, chunk, n);
 
-        close(cfd);
-    // }
+        write(cfd, chunk, n);
+    }
 
+    close(cfd);
     close(socket_lfd);
 
     return EXIT_SUCCESS;

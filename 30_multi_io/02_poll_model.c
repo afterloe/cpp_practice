@@ -105,7 +105,9 @@ int main()
     }
 
     free(chunk);
+    chunk = NULL;
     free(list);
+    list = NULL;
 
     close(lfd);
 

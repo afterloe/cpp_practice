@@ -12,7 +12,7 @@
 int main()
 {
     int lfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (lfd < 1)
+    if (lfd < 0)
     {
         perror("create socket failed ::");
         return EXIT_FAILURE;
@@ -71,7 +71,7 @@ int main()
                 }
             }
 
-            for (int i = lfd + 1; i < maxFID; i++)
+            for (int i = lfd + 1; i <= maxFID; i++)
             {
                 if (FD_ISSET(i, &changed))
                 {
@@ -81,7 +81,7 @@ int main()
                     {
                         printf("client leave. \n");
                         close(i);
-                        FD_CLR(i, &changed);
+                        FD_CLR(i, &listened);
                     }
                     else if (0 < ret)
                     {

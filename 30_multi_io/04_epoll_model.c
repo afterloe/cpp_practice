@@ -63,7 +63,7 @@ int main()
                         continue;
                     }
                     char ip[16] = {0};
-                    printf("socket %s", inet_ntop(cfd, &client.sin_addr.s_addr, ip, sizeof ip));
+                    printf("client %s", inet_ntop(AF_INET, &client.sin_addr.s_addr, ip, sizeof ip));
                     printf(": %d\n", ntohs(client.sin_port));
                     struct epoll_event node;
                     node.data.fd = cfd;

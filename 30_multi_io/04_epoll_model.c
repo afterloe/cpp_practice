@@ -85,7 +85,9 @@ int main()
                     char buf[4] = {0};
                     for (;;)
                     {
-                        int n = read(current->data.fd, buf, sizeof buf);
+                        // MSG_PEEK 表示读数据 不会删除缓冲区中的内容
+                        int n = recv(current->data.fd, buf, sizeof buf, MSG_CMSG_CLOEXEC);
+                        // int n = read(current->data.fd, buf, sizeof buf);
                         if (n < 0)
                         {
                             if (errno == EAGAIN)
@@ -108,7 +110,9 @@ int main()
                         else
                         {
                             write(STDOUT_FILENO, buf, n);
-                            write(current->data.fd, buf, n);
+                            // send api, 0 表示一般速度， 1 表示紧急，一般设置0
+                            send(current->data.fd, buf, n, 0);
+                            // write(current->data.fd, buf, n);
                         }
                     }
                 }

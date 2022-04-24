@@ -33,11 +33,19 @@ int main()
 
     // 设置select内容
     fd_set listened, changed;
-    int maxFID = lfd, current;
+    int maxFID = lfd, current, clients[FD_SETSIZE], idx = -1, maxIDX = -1;
+
+    // 清0
     FD_ZERO(&listened);
     FD_ZERO(&changed);
+    for (idx = 0; idx < FD_SETSIZE; idx++)
+    {
+        clients[idx] = -1;
+    }
+
     FD_SET(lfd, &listened);
-    while (1)
+
+    for (;;)
     {
         changed = listened;
         current = select(maxFID + 1, &changed, NULL, NULL, NULL);
@@ -60,7 +68,24 @@ int main()
                 int cfd = accept(lfd, (struct sockaddr *)&client, &len);
                 printf("client %s:", inet_ntop(AF_INET, &client.sin_addr.s_addr, ip, sizeof ip));
                 printf("%d\n", ntohs(client.sin_port));
+                for (idx = 0; idx < FD_SETSIZE; idx++)
+                {
+                    if (clients[idx] < 0)
+                    {
+                        clients[idx] = cfd;
+                        break;
+                    }
+                }
+                if (idx == FD_SETSIZE)
+                {
+                    printf("server is busy! \n");
+                    continue;
+                }
                 FD_SET(cfd, &listened);
+                if (idx > maxIDX)
+                {
+                    maxIDX = idx;
+                }
                 if (cfd > maxFID)
                 {
                     maxFID = cfd;
@@ -70,18 +95,22 @@ int main()
                     continue;
                 }
             }
-
-            for (int i = lfd + 1; i <= maxFID; i++)
+            for (idx = 0; idx <= maxIDX; idx++)
             {
-                if (FD_ISSET(i, &changed))
+                if (clients[idx] < 0)
+                {
+                    continue;
+                }
+                if (FD_ISSET(clients[idx], &changed))
                 {
                     char buf[1500] = {0};
-                    int ret = read(i, buf, 1500);
+                    int ret = read(clients[idx], buf, 1500);
                     if (0 == ret)
                     {
                         printf("client leave. \n");
-                        close(i);
-                        FD_CLR(i, &listened);
+                        clients[idx] = -1;
+                        close(clients[idx]);
+                        FD_CLR(clients[idx], &listened);
                     }
                     else if (0 < ret)
                     {

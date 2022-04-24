@@ -29,7 +29,7 @@ int main()
     printf("open %s success. \n", pwd);
 
     struct dirent *entry = NULL;
-    
+
     while (NULL != (entry = readdir(dir)))
     {
         printf("%s \n", entry->d_name);

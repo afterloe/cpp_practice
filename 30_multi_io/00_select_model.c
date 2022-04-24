@@ -8,7 +8,6 @@
 #include <sys/types.h>
 
 #include <sys/select.h>
-#include <sys/time.h>
 
 int main()
 {

@@ -6,6 +6,9 @@
 #include <arpa/inet.h>
 #include <sys/epoll.h>
 
+#include <fcntl.h>
+#include <errno.h>
+
 #define MAX 1024
 
 int main()
@@ -52,7 +55,7 @@ int main()
             current = list;
             for (idx = 0; idx < ret; idx++)
             {
-                if (current->data.fd == lfd)
+                if (current->data.fd == lfd && current->events & EPOLLIN)
                 {
                     struct sockaddr_in client;
                     socklen_t len = sizeof client;
@@ -62,29 +65,51 @@ int main()
                         perror("accept failed ::");
                         continue;
                     }
+                    // 设置cfd 为非阻塞, 避免边缘触发时， read一直阻塞读取。
+                    int model = fcntl(cfd, F_GETFL);
+                    model |= O_NONBLOCK;
+                    fcntl(cfd, F_SETFL, model);
+
                     char ip[16] = {0};
                     printf("client %s", inet_ntop(AF_INET, &client.sin_addr.s_addr, ip, sizeof ip));
                     printf(": %d\n", ntohs(client.sin_port));
                     struct epoll_event node;
                     node.data.fd = cfd;
-                    node.events = EPOLLIN;
+                    // 设置 epoll 为 边缘触发 模式， 即 只触发一次。
+                    // 默认 水平触发， 即 只要有数据就一直循环
+                    node.events = EPOLLIN | EPOLLET;
                     epoll_ctl(root, EPOLL_CTL_ADD, cfd, &node);
                 }
-                else
+                else if (current->events & EPOLLIN)
                 {
-                    char buf[1500] = {0};
-                    int n = read(current->data.fd, buf, sizeof buf);
-                    if (n <= 0)
+                    char buf[4] = {0};
+                    for (;;)
                     {
-                        printf("client closed or find error. \n");
-                        epoll_ctl(root, EPOLL_CTL_DEL, current->data.fd, current);
-                        close(current->data.fd);
-                        continue;
-                    }
-                    else
-                    {
-                        write(STDOUT_FILENO, buf, n);
-                        write(current->data.fd, buf, n);
+                        int n = read(current->data.fd, buf, sizeof buf);
+                        if (n < 0)
+                        {
+                            if (errno == EAGAIN)
+                            {
+                                // 缓冲区读取干净， 跳出本次循环。
+                                break;
+                            }
+                            printf("client find error. \n");
+                            epoll_ctl(root, EPOLL_CTL_DEL, current->data.fd, current);
+                            close(current->data.fd);
+                            break;
+                        }
+                        else if (n == 0)
+                        {
+                            printf("client closed. \n");
+                            epoll_ctl(root, EPOLL_CTL_DEL, current->data.fd, current);
+                            close(current->data.fd);
+                            break;
+                        }
+                        else
+                        {
+                            write(STDOUT_FILENO, buf, n);
+                            write(current->data.fd, buf, n);
+                        }
                     }
                 }
 

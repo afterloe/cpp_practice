@@ -88,6 +88,8 @@
         "strings.h": "c",
         "error.h": "c",
         "cerrno": "c",
-        "pthread.h": "c"
+        "pthread.h": "c",
+        "in.h": "c",
+        "event.h": "c"
     }
 }

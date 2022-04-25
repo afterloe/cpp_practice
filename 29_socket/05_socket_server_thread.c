@@ -35,7 +35,7 @@ int main()
     server.sin_family = AF_INET;
     server.sin_port = htons(8000);
     const char *p = (const char *)&server.sin_addr.s_addr;
-    inet_pton(AF_INET, p, "127.0.0.1");
+    inet_pton(AF_INET, "127.0.0.1", p);
 
     bind(lfd, (struct sockaddr *)&server, sizeof server);
 

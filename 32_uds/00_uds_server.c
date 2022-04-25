@@ -24,20 +24,20 @@ int main()
     int len = offsetof(struct sockaddr_un, sun_family) + strlen(file);
     bind(lfd, (struct sockaddr *)&server, sizeof server);
     printf("wait client to accept \n");
-    listen(lfd, 128);
 
+    listen(lfd, 128);
+    struct sockaddr_un client;
+    socklen_t c_len = sizeof client;
+    int cfd = accept(lfd, (struct sockaddr *)&client, &c_len);
+
+    if (cfd < 0)
+    {
+        perror("accept uds client failed ::");
+        return EXIT_FAILURE;
+    }
+    char buf[1500] = {0};
     for (;;)
     {
-        struct sockaddr_un client;
-        socklen_t len = sizeof client;
-        int cfd = accept(lfd, (struct sockaddr *)&client, &len);
-        if (cfd < 0)
-        {
-            perror("accept uds client failed ::");
-            break;
-        }
-
-        char buf[1500] = {0};
         memset(buf, 0, sizeof buf);
         int n = recv(cfd, buf, sizeof buf, 0);
         if (n == 0)
@@ -50,6 +50,7 @@ int main()
     }
 
     close(lfd);
+    close(cfd);
 
     return EXIT_SUCCESS;
 }

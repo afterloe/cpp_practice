@@ -5,8 +5,8 @@
 
 int main()
 {
+    // gcc file.c -levent
     const char **methods = event_get_supported_methods();
-    int i = 0;
     printf("libevent support method : \n");
     for (;;)
     {

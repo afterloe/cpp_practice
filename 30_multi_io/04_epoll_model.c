@@ -24,7 +24,8 @@ int main()
     struct sockaddr_in server;
     server.sin_family = AF_INET;
     server.sin_port = htons(8000);
-    inet_pton(AF_INET, "127.0.0.1", &server.sin_addr.s_addr);
+    // inet_pton(AF_INET, "127.0.0.1", &server.sin_addr.s_addr);
+    server.sin_addr.s_addr = INADDR_ANY;
     bind(lfd, (struct sockaddr *)&server, sizeof server);
     listen(lfd, 128);
 

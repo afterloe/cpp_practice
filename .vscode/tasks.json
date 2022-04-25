@@ -11,7 +11,8 @@
                 "-o",
                 "${workspaceFolder}/out/${fileBasenameNoExtension}.app",
                 "-I",
-                "${workspaceFolder}"
+                "${workspaceFolder}",
+                "-levent"
             ],
             "options": {
                 "cwd": "${fileDirname}"

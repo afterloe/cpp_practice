@@ -89,6 +89,7 @@
         "error.h": "c",
         "cerrno": "c",
         "pthread.h": "c",
-        "in.h": "c"
+        "in.h": "c",
+        "event.h": "c"
     }
 }

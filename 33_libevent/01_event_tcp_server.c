@@ -16,6 +16,7 @@ void cfdcb(int cfd, short event, void *args)
         printf("client close\n");
         // 数组实现下树
         // event_del();
+        // event_free();
     }
     else
     {

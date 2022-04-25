@@ -87,7 +87,26 @@ gcc test.c -L. -I. -ltest
 * 3） 永久设置,把`export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:库路径`，设置到`~/.bashrc`或者 `/etc/profile`文件中;   
 * 4） 将其添加到 `/etc/ld.so.conf`文件中,编辑`/etc/ld.so.conf`文件，加入库文件所在目录的路径, 运行`sudo ldconfig -v`，该命令会重建`/etc/ld.so.cache`文件。  
 
-### Makffile 编译工具
+### Makefile 编译工具
+
+### libevent 网络工具库
+#### 安装
+```
+wget https://objects.githubusercontent.com/libevent-2.1.12-stable.tar.gz -o libevent-2.1.12-stable.tar.gz
+tar -xzvf libevent-2.1.12-stable.tar.gz -C /usr/local/src
+cd /usr/local/src
+
+sudo apt install libssl-dev
+sudo apt install libssl-doc
+
+sudo ./configure
+sudo make
+sudo make install
+```
+
+#### 目录说明
+头文件目录: `/usr/local/include`   
+库路径: `/usr/local/lib`
 
 ### 命令行工具
 #### nc

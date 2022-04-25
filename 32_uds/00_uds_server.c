@@ -10,7 +10,7 @@
 
 int main()
 {
-    char file[8] = "sock.s";
+    char file[16] = "foo.socket";
     int lfd = socket(AF_UNIX, SOCK_STREAM, 0);
     if (lfd < 0)
     {

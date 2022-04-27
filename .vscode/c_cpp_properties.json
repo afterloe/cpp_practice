@@ -3,7 +3,8 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**" //此处会匹配工作文件下的所有文件
+                "${workspaceFolder}/**", //此处会匹配工作文件下的所有文件
+                "/usr/local/include/opencv4"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",

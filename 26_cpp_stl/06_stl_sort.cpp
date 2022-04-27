@@ -38,7 +38,7 @@ void printfP(vector<Point2f> &v)
 
 void sortP(vector<Point2f> &v, Size &coordinate)
 {
-    Point2f *arr = (Point2f *)malloc(sizeof(Point2f) * 4);
+    Point2f arr[4];
     for (vector<Point2f>::iterator it = v.begin(); it < v.end(); it++)
     {
         if (it->x == 0)
@@ -73,7 +73,9 @@ void sortP(vector<Point2f> &v, Size &coordinate)
 
     for (int idx = 0; idx < 4; idx++)
     {
-        v.push_back(*arr);
-        arr++;
+        v.push_back(arr[idx]);
     }
+
+    // free(arr);
+    // arr = NULL;
 }

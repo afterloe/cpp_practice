@@ -4,6 +4,18 @@
 > version is 1.0.0   
 > MIT License  
 
+### Boost
+#### 源码安装
+```
+wget https://boostorg.jfrog.io/artifactory/main/release/1.79.0/source/boost_1_79_0.zip
+sudo mkdir /usr/local/src/boost
+cd /usr/local/src/boost
+unzip boost_1_79_0.zip
+cd boost_1_79_0
+sudo ./bootstrap.sh
+sudo ./b2 install
+```
+
 ### Protobuf
 #### 源码安装
 ```

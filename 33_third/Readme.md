@@ -1,8 +1,37 @@
-openssl 使用
+第三方C++库
 ===
 > create by afterloe  
 > version is 1.0.0   
 > MIT License  
+
+### Protobuf
+#### 源码安装
+```
+wget https://codeload.github.com/protocolbuffers/protobuf/zip/refs/tags/v3.20.0
+sudo mkdir /usr/local/src/protobuf
+cd /usr/local/src/protobuf
+mv ~/Download/protobuf-3.20.0.zip .
+unzip protobuf-3.20.0.zip
+cd protobuf-3.20.0
+
+sudo ./autogen.sh
+sudo ./configure
+sudo make
+sudo make install
+sudo ldconfig
+```
+
+#### 测试使用
+```
+cd /usr/local/src/protobuf
+cd example
+protoc addressbook.proto --cpp_out=./
+
+ls
+
+addressbook.pb.cc
+addressbook.pb.h
+```
 
 ### openssl 安装
 通过tar.zip进行源码安装
@@ -16,6 +45,7 @@ cd /usr/local/src/openssl
 sudo ./configure
 sudo make
 sudo make install
+sudo ldconfig
 
 openssl version
 OpenSSL 1.1.1n  15 Mar 2022

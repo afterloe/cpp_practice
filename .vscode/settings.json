@@ -90,6 +90,9 @@
         "cerrno": "c",
         "pthread.h": "c",
         "in.h": "c",
-        "event.h": "c"
+        "event.h": "c",
+        "*.inc": "cpp",
+        "addressbook.pb.h": "c",
+        "coded_stream.h": "c"
     }
 }

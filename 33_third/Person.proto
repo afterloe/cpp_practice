@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+enum Sex
+{
+    Male = 0;
+    Female = 4;
+}
+
+message Person
+{
+    int32 id = 1;
+    repeated bytes cards = 2;
+    bytes name = 3;
+    int32 age = 4;
+    Sex sex = 5;
+}

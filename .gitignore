@@ -6,3 +6,4 @@ a.txt
 .vscode/*
 *.dSYM
 out/
+34_xml/*.csv

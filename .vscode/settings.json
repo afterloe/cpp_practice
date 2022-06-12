@@ -93,6 +93,8 @@
         "event.h": "c",
         "*.inc": "cpp",
         "addressbook.pb.h": "c",
-        "coded_stream.h": "c"
+        "coded_stream.h": "c",
+        "expat.h": "c",
+        "parser.h": "c"
     }
 }
